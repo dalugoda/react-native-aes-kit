@@ -51,11 +51,11 @@
 }
 
 - (NSData *)AES128DecryptWithKey:(NSString *)key gIv:(NSString *)gIv {//解密
-    char keyPtr[kCCKeySizeAES128+1];
+    char keyPtr[kCCKeySizeAES256+1];
     bzero(keyPtr, sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     
-    char ivPtr[kCCKeySizeAES128+1];
+    char ivPtr[kCCKeySizeAES256+1];
     memset(ivPtr, 0, sizeof(ivPtr));
     [gIv getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
     
@@ -67,7 +67,7 @@
                                           kCCAlgorithmAES128,
                                           kCCOptionPKCS7Padding,
                                           keyPtr,
-                                          kCCBlockSizeAES128,
+                                          kCCKeySizeAES256,
                                           ivPtr,
                                           [self bytes],
                                           dataLength,
